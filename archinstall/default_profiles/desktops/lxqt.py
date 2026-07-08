@@ -21,11 +21,8 @@ class LxqtProfile(Profile):
 		return [
 			'lxqt',
 			'breeze-icons',
-			'oxygen-icons',
 			'xdg-utils',
 			'ttf-freefont',
-			'l3afpad',
-			'slock',
 		]
 
 	@property

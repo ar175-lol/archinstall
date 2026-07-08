@@ -17,7 +17,6 @@ class GnomeProfile(Profile):
 	def packages(self) -> list[str]:
 		return [
 			'gnome',
-			'gnome-tweaks',
 		]
 
 	@property

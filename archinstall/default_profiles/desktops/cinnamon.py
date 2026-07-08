@@ -17,14 +17,7 @@ class CinnamonProfile(Profile):
 	def packages(self) -> list[str]:
 		return [
 			'cinnamon',
-			'system-config-printer',
 			'gnome-keyring',
-			'gnome-terminal',
-			'engrampa',
-			'gnome-screenshot',
-			'gvfs-smb',
-			'xed',
-			'xdg-user-dirs-gtk',
 		]
 
 	@property

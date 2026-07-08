@@ -20,7 +20,6 @@ class HyprlandProfile(Profile):
 	def packages(self) -> list[str]:
 		return [
 			'hyprland',
-			'dunst',
 			'kitty',
 			'uwsm',
 			'dolphin',

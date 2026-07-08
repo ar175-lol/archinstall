@@ -19,12 +19,9 @@ class I3wmProfile(Profile):
 			'i3-wm',
 			'i3lock',
 			'i3status',
-			'i3blocks',
 			'xss-lock',
-			'xterm',
-			'lightdm-gtk-greeter',
-			'lightdm',
 			'dmenu',
+			'alacritty'
 		]
 
 	@property

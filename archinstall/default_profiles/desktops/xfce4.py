@@ -17,7 +17,6 @@ class Xfce4Profile(Profile):
 	def packages(self) -> list[str]:
 		return [
 			'xfce4',
-			'xfce4-goodies',
 			'pavucontrol',
 			'gvfs',
 			'xarchiver',

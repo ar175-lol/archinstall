@@ -79,13 +79,6 @@ class ApplicationMenu(AbstractSubMenu[ApplicationConfiguration]):
 				preview_action=self._prev_firewall,
 				key='firewall_config',
 			),
-			MenuItem(
-				text=tr('Additional fonts'),
-				action=select_fonts,
-				value=self._app_config.fonts_config,
-				preview_action=self._prev_fonts,
-				key='fonts_config',
-			),
 		]
 
 	def _prev_power_management(self, item: MenuItem) -> str | None:
@@ -122,13 +115,6 @@ class ApplicationMenu(AbstractSubMenu[ApplicationConfiguration]):
 		if item.value is not None:
 			config: FirewallConfiguration = item.value
 			return f'{tr("Firewall")}: {config.firewall.value}'
-		return None
-
-	def _prev_fonts(self, item: MenuItem) -> str | None:
-		if item.value is not None:
-			config: FontsConfiguration = item.value
-			packages = ', '.join(f.value for f in config.fonts)
-			return f'{tr("Additional fonts")}: {packages}'
 		return None
 
 

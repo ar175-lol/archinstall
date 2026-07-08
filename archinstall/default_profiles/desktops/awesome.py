@@ -21,14 +21,10 @@ class AwesomeProfile(Profile):
 		return [
 			'awesome',
 			'alacritty',
+			'xorg-server',
+			'xorg-xinit',
+			'sxhkd'
 			'xorg-xrandr',
-			'xterm',
-			'feh',
-			'slock',
-			'terminus-font',
-			'gnu-free-fonts',
-			'ttf-liberation',
-			'xsel',
 		]
 
 	@override

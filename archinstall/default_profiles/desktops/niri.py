@@ -26,13 +26,8 @@ class NiriProfile(Profile):
 			'niri',
 			'alacritty',
 			'fuzzel',
-			'mako',
 			'xorg-xwayland',
-			'waybar',
-			'swaybg',
-			'swayidle',
-			'swaylock',
-			'xdg-desktop-portal-gnome',
+			'xdg-desktop-portal-gtk',
 		] + additional
 
 	@property

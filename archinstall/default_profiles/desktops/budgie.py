@@ -16,12 +16,8 @@ class BudgieProfile(Profile):
 	@override
 	def packages(self) -> list[str]:
 		return [
-			'materia-gtk-theme',
 			'budgie',
-			'mate-terminal',
-			'nemo',
-			'nemo-fileroller',
-			'papirus-icon-theme',
+			'alacritty'
 		]
 
 	@property

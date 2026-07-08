@@ -17,9 +17,9 @@ class PlasmaFlavor(StrEnum):
 	def show(self) -> str:
 		match self:
 			case PlasmaFlavor.Meta:
-				return f'{self.value} ({tr("Recommended")})'
-			case PlasmaFlavor.Plasma | PlasmaFlavor.Desktop:
 				return self.value
+			case PlasmaFlavor.Plasma | PlasmaFlavor.Desktop:
+				return f'{self.value} ({tr("Recommended")})'
 
 	def package_details(self) -> str:
 		ty = ''
@@ -61,7 +61,7 @@ class PlasmaFlavor(StrEnum):
 			case PlasmaFlavor.Plasma:
 				return ['plasma']
 			case PlasmaFlavor.Desktop:
-				return ['plasma-desktop']
+				return ['plasma-desktop' 'konsole' 'dolphin' 'kscreen' 'plasma-nm']
 
 
 class PlasmaProfile(Profile):
@@ -82,7 +82,7 @@ class PlasmaProfile(Profile):
 			flavor = PlasmaFlavor(flavor_str)
 			return flavor.packages()
 		else:
-			return PlasmaFlavor.Meta.packages()  # use plasma-meta as the recommended default
+			return PlasmaFlavor.Desktop.packages()  # use plasma-desktop as the recommended default
 
 	@property
 	@override

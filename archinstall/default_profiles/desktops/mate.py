@@ -17,7 +17,6 @@ class MateProfile(Profile):
 	def packages(self) -> list[str]:
 		return [
 			'mate',
-			'mate-extra',
 		]
 
 	@property
