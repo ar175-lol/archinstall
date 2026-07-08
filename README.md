@@ -45,10 +45,10 @@ Assuming you are on an Arch Linux live-ISO or installed via `pip`, `archinstall`
 ```shell
 archinstall
 ```
-similar goes for running the [guided](https://github.com/archlinux/archinstall/blob/master/archinstall/scripts/guided.py) installer using `git
+similar goes for running the [guided](https://github.com/archlinux/archinstall/blob/master/archinstall/scripts/guided.py) installer using `git`
 
 ```shell
-git clone https://github.com/archlinux/archinstall
+git clone https://github.com/ar175-lol/archinstall 
 cd archinstall
 python -m archinstall $@
 ```
