@@ -61,7 +61,7 @@ class PlasmaFlavor(StrEnum):
 			case PlasmaFlavor.Plasma:
 				return ['plasma']
 			case PlasmaFlavor.Desktop:
-				return ['plasma-desktop' 'konsole' 'dolphin' 'kscreen' 'plasma-nm']
+				return ['plasma-desktop', 'konsole', 'dolphin', 'kscreen', 'plasma-nm']
 
 
 class PlasmaProfile(Profile):
