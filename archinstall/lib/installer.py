@@ -1355,7 +1355,7 @@ class Installer:
 				boot_dir = boot_partition.mountpoint
 
 			add_options = [
-				f'--target={platform.machine()}-efi',
+				f'--target={"arm64" if platform.machine() == "aarch64" else platform.machine()}-efi',
 				f'--efi-directory={efi_partition.mountpoint}',
 				*boot_dir_arg,
 				'--bootloader-id=GRUB',
@@ -1489,15 +1489,19 @@ class Installer:
 
 			efi_dir_path.mkdir(parents=True, exist_ok=True)
 
+			efi_binaries: tuple[str, ...]
+			if platform.machine() == 'aarch64':
+				efi_binaries = ('BOOTAA64.EFI',)
+			else:
+				efi_binaries = ('BOOTIA32.EFI', 'BOOTX64.EFI')
+
 			try:
-				for file in ('BOOTIA32.EFI', 'BOOTX64.EFI'):
+				for file in efi_binaries:
 					(limine_path / file).copy_into(efi_dir_path)
 			except Exception as err:
 				raise DiskError(f'Failed to install Limine in {self.target}{efi_partition.mountpoint}: {err}')
 
-			hook_command = (
-				f'/usr/bin/cp /usr/share/limine/BOOTIA32.EFI {efi_dir_path_target}/ && /usr/bin/cp /usr/share/limine/BOOTX64.EFI {efi_dir_path_target}/'
-			)
+			hook_command = ' && '.join(f'/usr/bin/cp /usr/share/limine/{file} {efi_dir_path_target}/' for file in efi_binaries)
 
 			if not bootloader_removable:
 				# Create EFI boot menu entry for Limine.
@@ -1508,7 +1512,7 @@ class Installer:
 					raise OSError(f'Could not open or read /sys/firmware/efi/fw_platform_size to determine EFI bitness: {err}')
 
 				if efi_bitness == '64':
-					loader_path = '\\EFI\\arch-limine\\BOOTX64.EFI'
+					loader_path = f'\\EFI\\arch-limine\\{"BOOTAA64.EFI" if platform.machine() == "aarch64" else "BOOTX64.EFI"}'
 				elif efi_bitness == '32':
 					loader_path = '\\EFI\\arch-limine\\BOOTIA32.EFI'
 				else:
@@ -2127,13 +2131,12 @@ def accessibility_tools_in_use() -> bool:
 
 def run_custom_user_commands(commands: list[str], installation: Installer) -> None:
 	for index, command in enumerate(commands):
-		script_path = f'/var/tmp/user-command.{index}.sh'
-		chroot_path = f'{installation.target}/{script_path}'
+		script_path = LPath(f'/var/tmp/user-command.{index}.sh')
+		chroot_path = installation.target / script_path.relative_to_root()
 
 		info(f'Executing custom command "{command}" ...')
-		with open(chroot_path, 'w') as user_script:
-			user_script.write(command)
+		chroot_path.write_text(command)
 
 		SysCommand(f'arch-chroot -S {installation.target} bash {script_path}')
 
-		os.unlink(chroot_path)
+		chroot_path.unlink()
